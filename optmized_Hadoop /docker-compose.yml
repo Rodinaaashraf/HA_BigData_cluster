@@ -1,0 +1,92 @@
+services:
+  m1:
+    build: .
+    container_name: m1
+    hostname: m1
+    ports:
+      - "19870:9870"    
+      - "18088:8088"    
+      - "12181:2181"    
+      - "19000:9000"    
+    environment:
+      - HADOOP_NODENAME=nn1
+      
+    volumes:
+      - hadoop_data_m1:/opt/hadoop/hdfs
+    networks:
+      hadoop_net:
+    healthcheck:
+      test: ["CMD-SHELL", "jps | grep -E 'NameNode|DFSZKFailoverController|ResourceManager'"]
+      interval: 20s
+      timeout: 10s
+      retries: 25
+
+  m2:
+    build: .
+    container_name: m2
+    hostname: m2
+    ports:
+      - "19871:9870"    
+      - "18089:8088"    
+      - "12182:2181"    
+      - "19001:9000"    
+    environment:
+      - HADOOP_NODENAME=nn2
+    volumes:
+      - hadoop_data_m2:/opt/hadoop/hdfs
+    networks:
+      hadoop_net:
+    depends_on:
+      - m1
+    healthcheck:
+      test: ["CMD-SHELL", "jps | grep -E 'NameNode|DFSZKFailoverController|ResourceManager'"]
+      interval: 20s
+      timeout: 10s
+      retries: 25
+
+  m3:
+    build: .
+    container_name: m3
+    hostname: m3
+    ports:
+      - "19872:9870"   
+      - "18090:8088"    
+      - "12183:2181"    
+      - "19002:9000"    
+    environment:
+      - HADOOP_NODENAME=nn3
+    volumes:
+      - hadoop_data_m3:/opt/hadoop/hdfs
+    networks:
+      hadoop_net:
+    depends_on:
+      - m1
+    healthcheck:
+      test: ["CMD-SHELL", "jps | grep -E 'NameNode|DFSZKFailoverController|ResourceManager'"]
+      interval: 20s
+      timeout: 10s
+      retries: 25
+
+  w1:
+    build: .
+    container_name: w1
+    hostname: w1   
+    volumes:
+      - hadoop_data_w1:/opt/hadoop/hdfs
+    networks:
+      hadoop_net:
+    depends_on:
+      - m1
+
+  
+volumes:
+  hadoop_data_m1:
+  hadoop_data_m2:
+  hadoop_data_m3:
+  hadoop_data_w1:
+
+
+
+networks:
+  hadoop_net:
+    driver: bridge
