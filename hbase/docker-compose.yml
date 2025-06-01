@@ -1,0 +1,46 @@
+
+services:
+
+  hmaster1:
+    build: .
+    container_name: hmaster1
+    hostname: hmaster1
+
+    networks:
+      - optmized_docker_hadoop_net
+    ports:
+      - "16010:16010"  
+    
+
+  hmaster2:
+    build: .
+    container_name: hmaster2
+    hostname: hmaster2
+
+    networks:
+      - optmized_docker_hadoop_net
+    ports:
+      - "16011:16010"  
+
+  rs1:
+    build: .
+    container_name: rs1
+    hostname: rs1
+    networks:
+      - optmized_docker_hadoop_net
+    ports:
+      - "16030:16030"  
+
+  rs2:
+    build: .
+    container_name: rs2
+    hostname: rs2
+
+    networks:
+      - optmized_docker_hadoop_net
+    ports:
+      - "16031:16030"
+
+networks:
+  optmized_docker_hadoop_net:
+    external: true
