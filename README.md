@@ -25,7 +25,7 @@ This project sets up a fully containerized Hadoop ecosystem with High Availabili
 All services were configured manually before being containerized with Docker for automatic orchestration and scalability (e.g., scaling out workers).
 
 
-
+<pre><code
 
 │ ZooKeeper 1   ZooKeeper 2   ZooKeeper 3                      │
 │ - NameNode HA coordination                                   │
@@ -52,8 +52,7 @@ All services were configured manually before being containerized with Docker for
                  └────────┬──────────┘      └────────┬────────┘
                           │                          │
 ──────────────────────────▼──────────────────────────▼──────────────────────────
-
-
+></code>
 📌 Hive on Hadoop
 ##  Hive on Hadoop
 
@@ -91,7 +90,7 @@ All services were configured manually before being containerized with Docker for
 - Optimized storage for analytics-ready data via ORC/Parquet.
 - Metadata fully managed in **Hive Metastore** and queryable via HiveServer2 with Tez.
 
-
+<pre><code
        
                   │ HiveServer2  │     │ HiveServer2  │
                   └──────┬───────┘     └──────┬───────┘
@@ -112,7 +111,8 @@ All services were configured manually before being containerized with Docker for
                   └──────────────┘
 
 ────────────────────────────────────────────────────────────────────────────
-
+></code>
+  
 📌 HBase on Hadoop
 
 - An **HBase cluster** was built using the same base Hadoop image to maintain consistency and reduce image overhead.
@@ -136,7 +136,7 @@ To satisfy business analytics requirements, an optimized **WebTable** was design
 - **BlockCache:** Enhance read latency for frequently accessed data.
 
 This schema is tailored for efficient analytics on large-scale clickstream and content data.
-
+<pre><code
     ┌────────────┐         ┌────────────┐         ┌────────────┐
     │ HMaster #1 │◄───────►│ HMaster #2 │◄───────► │ ZooKeeper  │
     └────┬───────┘         └────┬───────┘         └────┬───────┘
@@ -150,7 +150,7 @@ This schema is tailored for efficient analytics on large-scale clickstream and c
      ➤ RegionServers co-locate storage and compute for data locality
 
 ────────────────────────────────────────────────────────────────────────────
----
+></code>
 
 ## Features Summary
 
